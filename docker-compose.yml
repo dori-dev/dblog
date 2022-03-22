@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  dblog_postgresql:
+    image: postgres:12
+    container_name: dblog_postgresql
+    volumes:
+      - dblog_postgresql:/var/lib/postgresql/data
+    restart: always
+    env_file: .env
+    ports:
+      - "5432:5432"
+    networks:
+      - dblog_network
+
+volumes: 
+  dblog_postgresql:
+    external: true
+
+networks:
+  dblog_network:
+    external: true
