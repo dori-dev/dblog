@@ -6,3 +6,5 @@ __pycache__
 migrations
 # DataBase
 db.sqlite3
+# Files Folder
+files
