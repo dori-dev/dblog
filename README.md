@@ -9,4 +9,4 @@ Using any tools to create advance blog with Django!
 - Docker
 
 # TODO
-- [ ] add collectstatic to use guid
+- [ ] add collectstatic to user guid
