@@ -1,10 +1,11 @@
 # Virtual Env
-env
+env/
 # Python Cache
 __pycache__
 # Django Migrations
-migrations
-# DataBase
-db.sqlite3
+migrations/
 # Files Folder
-files
+files/
+# CKEditor Files
+admin/
+ckeditor/
