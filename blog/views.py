@@ -11,19 +11,29 @@ class IndexPage(TemplateView):
     """
 
     def get(self, request: object, **kwargs):
+        # all articles data
         all_articles: List[object] = Article.objects.all().order_by(
             "-created_at"
-        )[:12]  # TODO fix it
+        )[:12]
         article_data: List[dict] = list(
-            map(self.create_article_data, all_articles)
+            map(self.get_article_data, all_articles)
         )
-        context = {
+        # all promote articles data
+        all_promote_articles: List[object] = Article.objects.filter(
+            promote=True
+        )[:5]
+        promote_data: List[dict] = list(
+            map(self.get_promote_article_data, all_promote_articles)
+        )
+        # render page
+        context: dict = {
             'article_data': article_data,
+            'promote_article_data': promote_data,
         }
         return render(request, 'index.html', context)
 
     @staticmethod
-    def create_article_data(article: object) -> dict:
+    def get_article_data(article: object) -> dict:
         """create data for articles with article object
 
         Args:
@@ -33,8 +43,25 @@ class IndexPage(TemplateView):
             dict: article values
         """
         return {
+            'category': article.category.title,
             'title': article.title,
             'cover': article.cover.url,
-            'category': article.category.title,
             'created_at': article.get_date,
         }
+
+    def get_promote_article_data(self, promote_article: object) -> dict:
+        """create data for promote articles with promote_article object
+
+        Args:
+            promote_article (object): object of promote article
+
+        Returns:
+            dict: promote article values
+        """
+        article_data = self.get_article_data(promote_article)
+        article_data.update({
+            'author': f"{promote_article.author.user.first_name} "
+            f"{promote_article.author.user.last_name}",
+            'avatar': promote_article.author.avatar.url,
+        })
+        return article_data

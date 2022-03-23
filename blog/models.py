@@ -29,7 +29,7 @@ class UserProfile(models.Model):
     avatar = models.ImageField(
         default='files/user_avatar/avatar.png',
         upload_to='files/user_avatar/',
-        null=True, blank=True,
+        null=False, blank=False,  # TODO True it
         validators=[validate_file_extension],
     )
     description = models.CharField(max_length=512, null=False, blank=False)
@@ -51,6 +51,7 @@ class Article(models.Model):
     created_at = models.DateTimeField(default=datetime.now, blank=False)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    promote = models.BooleanField(default=False)
 
     def get_date(self):  # TODO fa humanize
         return humanize.naturaltime(self.created_at)
