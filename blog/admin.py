@@ -5,7 +5,10 @@ from .models import UserProfile, Article, Category
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'avatar', 'description']
+    list_display = ['user', 'name', 'description']
+
+    def name(self, model: object):
+        return f"{model.user.first_name} {model.user.last_name}"
 
 
 class ArticleAdmin(admin.ModelAdmin):
