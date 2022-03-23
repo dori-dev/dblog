@@ -7,6 +7,7 @@ Using any tools to create advance blog with Django!
 - DRF
 - PostgreSQL
 - Docker
+- Nginx
 
 # TODO
 - [ ] add collectstatic to user guid

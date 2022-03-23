@@ -11,10 +11,14 @@ class IndexPage(TemplateView):
     """
 
     def get(self, request: object, **kwargs):
-        all_articles: List[object] = Article.objects.all()[:9]
-        article_data: object = map(self.create_article_data, all_articles)
+        all_articles: List[object] = Article.objects.all().order_by(
+            "-created_at"
+        )[:12]  # TODO fix it
+        article_data: List[dict] = list(
+            map(self.create_article_data, all_articles)
+        )
         context = {
-            'article_data': list(article_data)
+            'article_data': article_data,
         }
         return render(request, 'index.html', context)
 
@@ -32,5 +36,5 @@ class IndexPage(TemplateView):
             'title': article.title,
             'cover': article.cover.url,
             'category': article.category.title,
-            'created_at': article.created_at,
+            'created_at': article.get_date,
         }

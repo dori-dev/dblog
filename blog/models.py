@@ -4,6 +4,8 @@ import os
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.humanize.templatetags import humanize
+from django.utils.translation import gettext as _  # TODO fa humanize date
 from django.core.exceptions import ValidationError
 from ckeditor.fields import RichTextField
 
@@ -46,9 +48,16 @@ class Article(models.Model):
         validators=[validate_file_extension],
     )
     content = RichTextField()
+    # TODO auto now
     created_at = models.DateTimeField(default=datetime.now, blank=False)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    author = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+
+    def get_date(self):  # TODO
+        return humanize.naturaltime(self.created_at)
+
+    def __str__(self):
+        return self.title
 
 
 class Category(models.Model):
