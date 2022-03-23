@@ -50,9 +50,6 @@ class Article(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     author = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.title
-
 
 class Category(models.Model):
     """category of blog articles"""
