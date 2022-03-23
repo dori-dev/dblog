@@ -10,7 +10,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 class ArticleAdmin(admin.ModelAdmin):
     search_fields = ['title', 'content']
-    list_display = ['title', 'category', 'author', 'create_at']
+    list_display = ['title', 'category', 'author', 'created_at']
 
 
 class CategoryAdmin(admin.ModelAdmin):
