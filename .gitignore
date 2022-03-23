@@ -9,3 +9,6 @@ files/
 # CKEditor Files
 admin/
 ckeditor/
+# Templates
+my_templates/
+staticfiles/
