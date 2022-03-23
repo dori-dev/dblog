@@ -10,7 +10,12 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 class ArticleAdmin(admin.ModelAdmin):
     search_fields = ['title', 'content']
-    list_display = ['title', 'category', 'author', 'created_at']
+    list_display = ['title', 'category', 'author', 'date']
+    list_filter = ['category', 'author', 'created_at']
+
+    def date(self, model: object):
+        return model.created_at.date()
+    date.short_description = "Created At"
 
 
 class CategoryAdmin(admin.ModelAdmin):
