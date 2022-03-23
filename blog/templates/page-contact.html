@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
   <head>
-    <!--- basic page needs ================== -->
+    <!--- basic page needs
+    ================================================== -->
     <meta charset="utf-8" />
-    <title>Blogpy</title>
+    <title>Contact - Blogpy</title>
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <!-- mobile specific metas ================== -->
+    <!-- mobile specific metas
+    ================================================== -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
 
-    <!-- CSS ================== -->
+    <!-- CSS
+    ================================================== -->
     <link rel="stylesheet" href="static/css/base.css" />
     <link rel="stylesheet" href="static/css/vendor.css" />
     <link rel="stylesheet" href="static/css/main.css" />
 
-    <!-- script ================== -->
+    <!-- script
+    ================================================== -->
     <script src="static/js/modernizr.js"></script>
 
-    <!-- favicons ================== -->
-    <link rel="shortcut icon" href="static/favicon.icon" type="image/x-icon" />
-    <link rel="icon" href="static/favicon.ico" type="image/x-icon" />
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
   </head>
 
   <body id="top">
-    <!-- preloader ================== -->
+    <!-- preloader
+    ================================================== -->
     <div id="preloader">
       <div id="loader" class="dots-fade">
         <div></div>
@@ -36,12 +42,14 @@
       </div>
     </div>
 
-    <!-- header ================== -->
+    <!-- header
+    ================================================== -->
     <header class="s-header header">
       <div class="header__logo">
         <a class="logo" href="{% url 'index' %}"> دی بلاگ </a>
       </div>
       <!-- end header__logo -->
+
       <a class="header__toggle-menu" href="#0" title="Menu"><span>منو</span></a>
       <nav class="header__nav-wrap">
         <h2 class="header__nav-heading h6">هدایت به</h2>
@@ -50,7 +58,7 @@
           <li><a href="{% url 'contact' %}" title="">تماس</a></li>
           <li><a href="page-about.html" title="">درباره</a></li>
           <li>
-            <a href="category.html" title="">دسته بندی</a>
+            <a href="#0" title="">دسته بندی</a>
           </li>
 
           <li class="current"><a href="index.html" title="">خانه</a></li>
@@ -68,116 +76,84 @@
     </header>
     <!-- s-header -->
 
-    <!-- featured ================== -->
-    <section class="s-featured">
+    <!-- s-content
+================================================== -->
+    <section class="s-content s-content--top-padding s-content--narrow">
+      <div class="row narrow">
+        <div class="col-full s-content__header">
+          <h1 class="display-1 display-1--with-line-sep">
+            با ما در تماس باشید
+          </h1>
+          <p class="lead">
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+            استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه مجله در
+            ستون و سطر آنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+            کاربردهای
+          </p>
+        </div>
+      </div>
+
       <div class="row">
-        <div class="col-full">
-          <div class="featured-slider featured" data-aos="zoom-in">
-            {% for promote_article in promote_article_data %}
-            <div class="featured__slide">
-              <div class="entry">
-                <div
-                  class="entry__background"
-                  style="
-                    background-image: url('{{ promote_article.cover }}');
-                  "
-                ></div>
+        <div class="col-full s-content__main">
+          <p>
+            <img
+              src="static/images/thumbs/contact/contact-1000.jpg"
+              srcset="
+                static/images/thumbs/contact/contact-2000.jpg 2000w,
+                static/images/thumbs/contact/contact-1000.jpg 1000w,
+                static/images/thumbs/contact/contact-500.jpg   500w
+              "
+              sizes="(max-width: 2000px) 100vw, 2000px"
+              alt=""
+            />
+          </p>
 
-                <div class="entry__content">
-                  <span class="entry__category">
-                    <a href="#0"> {{ promote_article.category }}</a>
-                  </span>
+          <h2 style="text-align: right">سلام</h2>
 
-                  <h1>
-                    <a href="#0" title="">{{ promote_article.title }}</a>
-                  </h1>
+          <p>
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+            استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه مجله در
+            ستون و سطر آنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+            کاربردهای
+          </p>
 
-                  <div class="entry__info">
-                    <a href="#0" class="entry__profile-pic">
-                      <img
-                        class="avatar"
-                        src="{{ promote_article.avatar }}"
-                        alt=""
-                      />
-                    </a>
-                    <ul class="entry__meta">
-                      <li><a href="#0">{{ promote_article.author }}</a></li>
-                      <li>{{ promote_article.created_at }}</li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- end entry__content -->
-              </div>
-              <!-- end entry -->
+          <p>
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+            استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه مجله در
+            ستون و سطر آنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+            کاربردهای
+          </p>
+
+          <div class="row">
+            <div class="col-six tab-full">
+              <h4 style="text-align: right">ادرس ما</h4>
+
+              <p>
+                1600 Amphitheatre Parkway<br />
+                Mountain View, CA<br />
+                94043 US
+              </p>
             </div>
-            <!-- end featured__slide -->
-            {% endfor %}
+
+            <div class="col-six tab-full">
+              <h4 style="text-align: right">اطلاعات تماس</h4>
+
+              <p>
+                sayhello@wordsmith.com<br />
+                info@wordsmith.com <br />
+                Phone: (+1) 123 456
+              </p>
+            </div>
           </div>
-          <!-- end featured -->
         </div>
-        <!-- end col-full -->
+        <!-- s-content__main -->
       </div>
-    </section>
-    <!-- end s-featured -->
-
-    <!-- s-content ================== -->
-    <section class="s-content">
-      <div class="row entries-wrap wide">
-        <div class="entries">
-          {% for article in article_data %}
-          <article class="col-block">
-            <div class="item-entry" data-aos="zoom-in">
-              <div class="item-entry__thumb">
-                <a href="single-standard.html" class="item-entry__thumb-link">
-                  <!-- style="height:auto;overflow: hidden;" TODO fix width -->
-                  <img src="{{ article.cover }}" alt="" />
-                </a>
-              </div>
-
-              <div class="item-entry__text">
-                <div class="item-entry__cat">
-                  <a href="category.html">{{ article.category }}</a>
-                </div>
-
-                <h1 style="direction: rtl" class="item-entry__title">
-                  <a href="single-standard.html">{{ article.title }}</a>
-                </h1>
-
-                <div class="item-entry__date">
-                  <a href="single-standard.html">{{ article.created_at }}</a>
-                </div>
-              </div>
-            </div>
-            <!-- item-entry -->
-          </article>
-          <!-- end article -->
-          {% endfor %}
-        </div>
-        <!-- end entries -->
-      </div>
-      <!-- end entries-wrap -->
-
-      <div class="row pagination-wrap">
-        <div class="col-full">
-          <nav class="pgn" data-aos="fade-up">
-            <ul>
-              <li><a class="pgn__prev" href="#0">قبل</a></li>
-              <li><a class="pgn__num" href="#0">۱</a></li>
-              <li><span class="pgn__num current">۲</span></li>
-              <li><a class="pgn__num" href="#0">۳</a></li>
-              <li><a class="pgn__num" href="#0">۴</a></li>
-              <li><a class="pgn__num" href="#0">۵</a></li>
-              <li><span class="pgn__num dots">…</span></li>
-              <li><a class="pgn__num" href="#0">۸</a></li>
-              <li><a class="pgn__next" href="#0">بعد</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+      <!-- end row -->
     </section>
     <!-- end s-content -->
 
-    <!-- s-footer ================== -->
+    <!-- s-footer
+    ================================================== -->
     <footer class="s-footer">
       <div class="s-footer__main">
         <div class="row">
@@ -280,9 +256,11 @@
     </footer>
     <!-- end s-footer -->
 
-    <!-- Java Script ================== -->
+    <!-- Java Script
+================================================== -->
     <script src="static/js/jquery-3.2.1.min.js"></script>
     <script src="static/js/plugins.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="static/js/main.js"></script>
   </body>
 </html>

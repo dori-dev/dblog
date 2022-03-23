@@ -65,3 +65,7 @@ class IndexPage(TemplateView):
             'avatar': promote_article.author.avatar.url,
         })
         return article_data
+
+
+class ContactPage(TemplateView):
+    template_name = "page-contact.html"
