@@ -46,12 +46,12 @@
 
         <ul class="header__nav">
           <li><a href="{% url 'contact' %}" title="">تماس</a></li>
-          <li><a href="page-about.html" title="">درباره</a></li>
+          <li><a href="{% url 'about' %}" title="">درباره</a></li>
           <li>
             <a href="category.html" title="">دسته بندی</a>
           </li>
 
-          <li class="current"><a href="index.html" title="">خانه</a></li>
+          <li class="current"><a href="{% url 'index' %}" title="">خانه</a></li>
         </ul>
         <!-- end header__nav -->
 
@@ -129,19 +129,16 @@
           <div class="col-six">
             <ul class="footer-social">
               <li>
-                <a href="#0"><i class="fab fa-instagram"></i></a>
+                <a target="_blank" href="https://t.me/Mohamad_Dori"><i class="fab fa-telegram-plane"></i></a>
               </li>
               <li>
-                <a href="#0"><i class="fab fa-linkedin"></i></a>
+                <a target="_blank" href="https://virgool.io/@dori-dev"><i class="fab fa-blogger"></i></a>
               </li>
               <li>
-                <a href="#0"><i class="fab fa-telegram"></i></a>
+                <a target="_blank" href="https://www.youtube.com/channel/UC8PIMbjxztHeiBWZRpblp2A"><i class="fab fa-youtube"></i></a>
               </li>
               <li>
-                <a href="#0"><i class="fab fa-youtube"></i></a>
-              </li>
-              <li>
-                <a href="#0"><i class="fab fa-github"></i></a>
+                <a target="_blank" href="https://github.com/dori-dev"><i class="fab fa-github"></i></a>
               </li>
             </ul>
           </div>
