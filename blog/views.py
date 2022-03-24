@@ -21,7 +21,7 @@ class IndexPage(TemplateView):
         # all promote articles data
         all_promote_articles: List[object] = Article.objects.filter(
             promote=True
-        )[:5]
+        )[:3]
         promote_data: List[dict] = list(
             map(self.get_promote_article_data, all_promote_articles)
         )

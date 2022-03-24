@@ -38,7 +38,7 @@
 
     <!-- header ================== -->
     <header class="s-header header">
-      <div class="header__logo">
+      <div style="text-align: right" class="header__logo">
         <a class="logo" href="{% url 'index' %}"> دی بلاگ </a>
       </div>
       <!-- end header__logo -->
@@ -88,7 +88,7 @@
                     <a href="#0"> {{ promote_article.category }}</a>
                   </span>
 
-                  <h1>
+                  <h1 style="direction: rtl;">
                     <a href="#0" title="">{{ promote_article.title }}</a>
                   </h1>
 
@@ -123,14 +123,24 @@
     <!-- s-content ================== -->
     <section class="s-content">
       <div class="row entries-wrap wide">
-        <div class="entries">
+        <div style="direction: rtl;" class="entries">
           {% for article in article_data %}
           <article class="col-block">
             <div class="item-entry" data-aos="zoom-in">
-              <div class="item-entry__thumb">
+              <div style="background-color: #cccccc;" class="item-entry__thumb">
                 <a href="single-standard.html" class="item-entry__thumb-link">
                   <!-- style="height:auto;overflow: hidden;" TODO fix width -->
-                  <img src="{{ article.cover }}" alt="" />
+                  <img
+                    style="
+                      height: 220px;
+                      background-position: center;
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      position: relative;
+                    "
+                    src="{{ article.cover }}"
+                    alt=""
+                  />
                 </a>
               </div>
 
