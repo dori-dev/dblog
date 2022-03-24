@@ -2078,7 +2078,7 @@ p {
  * responsive:
  * header
  * ------------------------------------------------------------------- */
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 900px) {
   .header__logo {
     left: 30px;
   }
@@ -2105,7 +2105,7 @@ p {
   }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 700px) {
   .header__logo {
     left: 20px;
   }
