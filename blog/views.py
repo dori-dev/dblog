@@ -1,5 +1,6 @@
 """blog views
 """
+from pipes import Template
 from typing import List
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -69,3 +70,6 @@ class IndexPage(TemplateView):
 
 class ContactPage(TemplateView):
     template_name = "page-contact.html"
+
+class AboutView(TemplateView):
+    template_name = "page-about.html"

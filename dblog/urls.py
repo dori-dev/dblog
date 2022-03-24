@@ -20,3 +20,7 @@ if settings.DEBUG:
         'contact/static/',
         document_root=settings.STATIC_ROOT,
     )
+    urlpatterns += static(
+        'about/static/',
+        document_root=settings.STATIC_ROOT,
+    )
