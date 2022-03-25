@@ -2,3 +2,6 @@ Django==4.0.3
 django-ckeditor==6.2.0
 Pillow==9.0.1
 psycopg2==2.9.3
+djangorestframework==3.13.1
+django-filter==21.1
+Markdown==3.3.6
