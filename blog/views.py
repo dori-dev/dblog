@@ -1,12 +1,13 @@
 """blog views
 """
-from typing import List
+from typing import List, Union
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Article
+from . import serializers
 
 
 def get_article_data(article: object) -> dict:
@@ -90,5 +91,29 @@ class AllArticleAPIView(APIView):
         else:
             return Response(
                 {'data': article_data},
+                status=status.HTTP_200_OK
+            )
+
+
+class SingleArticleAPIView(APIView):
+    def get(self, request, format=None):
+        try:
+            article_title: str = request.GET['article_title']
+            article: Union[object, List[object]] = Article.objects.filter(
+                title__contains=article_title
+            )
+            serialized_data: list = serializers.SingleArticleSerializer(
+                article, many=True
+            )
+            data: list = serialized_data.data
+        except Exception:
+            message: str = "Internal Server Error, We'll Check It Later"
+            return Response(
+                {'status': message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        else:
+            return Response(
+                {'data': data},
                 status=status.HTTP_200_OK
             )

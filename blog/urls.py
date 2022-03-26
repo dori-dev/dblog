@@ -8,8 +8,13 @@ urlpatterns = [
     path('contact/', views.ContactPage.as_view(), name='contact'),
     path('about/', views.AboutPage.as_view(), name='about'),
     path(
+        'article/',
+        views.SingleArticleAPIView.as_view(),
+        name='single_article'
+    ),
+    path(
         'article/all/',
         views.AllArticleAPIView.as_view(),
         name='all_articles'
-    )
+    ),
 ]
