@@ -36,7 +36,7 @@ class IndexPage(TemplateView):
     """index page view
     """
 
-    def get(self, request: object, **kwargs):
+    def get(self, request: object):
         # all articles data
         all_articles: List[object] = Article.objects.all().order_by(
             "-created_at")[:12]
@@ -69,7 +69,7 @@ class AboutPage(TemplateView):  # TODO dynamic data
 class AllArticleAPIView(APIView):
     """all article api view"""
 
-    def get(self, request, format=None):
+    def get(self, request):
         try:
             all_articles: List[object] = Article.objects.all().order_by(
                 '-created_at')[:10]
@@ -87,7 +87,7 @@ class AllArticleAPIView(APIView):
 
 
 class SingleArticleAPIView(APIView):
-    def get(self, request, format=None):
+    def get(self, request):
         try:
             article_title: str = request.GET['article_title']
             article: List[object] = Article.objects.filter(
@@ -107,7 +107,7 @@ class SingleArticleAPIView(APIView):
 
 
 class SearchArticleAPIView(APIView):
-    def get(self, request, format=None):
+    def get(self, request):
         try:
             query: str = request.GET['query']
             articles: List[object] = Article.objects.filter(
