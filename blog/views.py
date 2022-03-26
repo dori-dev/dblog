@@ -1,10 +1,34 @@
 """blog views
 """
-from pipes import Template
 from typing import List
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .models import UserProfile, Article, Category
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Article
+
+
+def get_article_data(article: object) -> dict:
+    """create data for articles with article object
+
+        Args:
+            article (object): object of article
+
+        Returns:
+            dict: article values
+        """
+    return {
+        'title': article.title,
+        'category': article.category.title,
+        'author': f"{article.author.user.first_name} "
+        f"{article.author.user.last_name}",
+        'created_at': article.get_date(),
+        'avatar': article.author.avatar.url,
+        'cover': article.cover.url,
+        'content': article.content,
+        'promote': article.promote,
+    }
 
 
 class IndexPage(TemplateView):
@@ -17,14 +41,14 @@ class IndexPage(TemplateView):
             "-created_at"
         )[:12]
         article_data: List[dict] = list(
-            map(self.get_article_data, all_articles)
+            map(get_article_data, all_articles)
         )
         # all promote articles data
         all_promote_articles: List[object] = Article.objects.filter(
             promote=True
         )[:3]
         promote_data: List[dict] = list(
-            map(self.get_promote_article_data, all_promote_articles)
+            map(get_article_data, all_promote_articles)
         )
         # render page
         context: dict = {
@@ -33,43 +57,38 @@ class IndexPage(TemplateView):
         }
         return render(request, 'index.html', context)
 
-    @staticmethod
-    def get_article_data(article: object) -> dict:
-        """create data for articles with article object
 
-        Args:
-            article (object): object of article
-
-        Returns:
-            dict: article values
-        """
-        return {
-            'category': article.category.title,
-            'title': article.title,
-            'cover': article.cover.url,
-            'created_at': article.get_date,
-        }
-
-    def get_promote_article_data(self, promote_article: object) -> dict:
-        """create data for promote articles with promote_article object
-
-        Args:
-            promote_article (object): object of promote article
-
-        Returns:
-            dict: promote article values
-        """
-        article_data = self.get_article_data(promote_article)
-        article_data.update({
-            'author': f"{promote_article.author.user.first_name} "
-            f"{promote_article.author.user.last_name}",
-            'avatar': promote_article.author.avatar.url,
-        })
-        return article_data
-
-
-class ContactPage(TemplateView):
+class ContactPage(TemplateView):  # TODO dynamic data
+    """contact-us page view
+    """
     template_name = "page-contact.html"
 
-class AboutView(TemplateView):
+
+class AboutPage(TemplateView):  # TODO dynamic data
+    """about-me page view
+    """
     template_name = "page-about.html"
+
+
+class AllArticleAPIView(APIView):
+    """all article api view"""
+
+    def get(self, request, format=None):
+        try:
+            all_articles: List[object] = Article.objects.all().order_by(
+                '-created_at'
+            )[:10]
+            article_data: List[dict] = list(
+                map(get_article_data, all_articles)
+            )
+        except Exception:
+            message: str = "Internal Server Error, We'll Check It Later"
+            return Response(
+                {'status': message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        else:
+            return Response(
+                {'data': article_data},
+                status=status.HTTP_200_OK
+            )
