@@ -1,8 +1,9 @@
 """blog views
 """
-from typing import List, Union
+from typing import List
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.db.models import Q
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -89,11 +90,30 @@ class SingleArticleAPIView(APIView):
     def get(self, request, format=None):
         try:
             article_title: str = request.GET['article_title']
-            article: Union[object, List[object]] = Article.objects.filter(
+            article: List[object] = Article.objects.filter(
                 title__contains=article_title)
             serialized_data: list = serializers.SingleArticleSerializer(
                 article, many=True)
             data: list = serialized_data.data
+        except Exception:
+            message: str = "Internal Server Error, We'll Check It Later"
+            return Response(
+                {'status': message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(
+                {'data': data},
+                status=status.HTTP_200_OK)
+
+
+class SearchArticleAPIView(APIView):
+    def get(self, request, format=None):
+        try:
+            query: str = request.GET['query']
+            articles: List[object] = Article.objects.filter(
+                Q(content__icontains=query))
+            data: List[dict] = list(
+                map(get_article_data, articles))
         except Exception:
             message: str = "Internal Server Error, We'll Check It Later"
             return Response(
