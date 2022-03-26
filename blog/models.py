@@ -27,8 +27,8 @@ class UserProfile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(
-        default='files/user_avatar/avatar.png',
-        upload_to='files/user_avatar/',
+        default='user_avatar/avatar.png',
+        upload_to='user_avatar/',
         null=False, blank=False,  # TODO True it
         validators=[validate_file_extension],
     )
@@ -43,7 +43,7 @@ class Article(models.Model):
     """
     title = models.CharField(max_length=128, null=False, blank=False)
     cover = models.ImageField(
-        upload_to='files/article_cover/',
+        upload_to='article_cover/',
         null=False, blank=False,
         validators=[validate_file_extension],
     )
@@ -64,7 +64,7 @@ class Category(models.Model):
     """category of blog articles"""
     title = models.CharField(max_length=128, null=False, blank=False)
     cover = models.ImageField(
-        upload_to='files/category_cover/',
+        upload_to='category_cover/',
         null=False, blank=False,
         validators=[validate_file_extension],
     )

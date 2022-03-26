@@ -28,8 +28,7 @@ def get_article_data(article: object) -> dict:
         'avatar': article.author.avatar.url,
         'cover': article.cover.url,
         'content': article.content,
-        'promote': article.promote,
-    }
+        'promote': article.promote}
 
 
 class IndexPage(TemplateView):
@@ -39,23 +38,18 @@ class IndexPage(TemplateView):
     def get(self, request: object, **kwargs):
         # all articles data
         all_articles: List[object] = Article.objects.all().order_by(
-            "-created_at"
-        )[:12]
+            "-created_at")[:12]
         article_data: List[dict] = list(
-            map(get_article_data, all_articles)
-        )
+            map(get_article_data, all_articles))
         # all promote articles data
         all_promote_articles: List[object] = Article.objects.filter(
-            promote=True
-        )[:3]
+            promote=True)[:3]
         promote_data: List[dict] = list(
-            map(get_article_data, all_promote_articles)
-        )
+            map(get_article_data, all_promote_articles))
         # render page
         context: dict = {
             'article_data': article_data,
-            'promote_article_data': promote_data,
-        }
+            'promote_article_data': promote_data}
         return render(request, 'index.html', context)
 
 
@@ -77,22 +71,18 @@ class AllArticleAPIView(APIView):
     def get(self, request, format=None):
         try:
             all_articles: List[object] = Article.objects.all().order_by(
-                '-created_at'
-            )[:10]
+                '-created_at')[:10]
             article_data: List[dict] = list(
-                map(get_article_data, all_articles)
-            )
+                map(get_article_data, all_articles))
         except Exception:
             message: str = "Internal Server Error, We'll Check It Later"
             return Response(
                 {'status': message},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response(
                 {'data': article_data},
-                status=status.HTTP_200_OK
-            )
+                status=status.HTTP_200_OK)
 
 
 class SingleArticleAPIView(APIView):
@@ -100,20 +90,16 @@ class SingleArticleAPIView(APIView):
         try:
             article_title: str = request.GET['article_title']
             article: Union[object, List[object]] = Article.objects.filter(
-                title__contains=article_title
-            )
+                title__contains=article_title)
             serialized_data: list = serializers.SingleArticleSerializer(
-                article, many=True
-            )
+                article, many=True)
             data: list = serialized_data.data
         except Exception:
             message: str = "Internal Server Error, We'll Check It Later"
             return Response(
                 {'status': message},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response(
                 {'data': data},
-                status=status.HTTP_200_OK
-            )
+                status=status.HTTP_200_OK)

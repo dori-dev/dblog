@@ -10,11 +10,9 @@ urlpatterns = [
     path(
         'article/',
         views.SingleArticleAPIView.as_view(),
-        name='single_article'
-    ),
+        name='single_article'),
     path(
         'article/all/',
         views.AllArticleAPIView.as_view(),
-        name='all_articles'
-    ),
+        name='all_articles'),
 ]
