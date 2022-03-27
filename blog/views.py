@@ -151,8 +151,33 @@ class SubmitArticleAPIView(APIView):
             article.category = category
             article.author = author
             article.promote = promote
-        except Exception as err:
-            print(err)
+        except Exception:
+            message: str = "Internal Server Error, We'll Check It Later"
+            return Response(
+                {'status': message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            article.save()
+            return Response(
+                {'status': "OK"},
+                status=status.HTTP_200_OK)
+
+
+class UpdateArticleAPIView(APIView):
+    def post(self, request: HttpRequest):
+        try:
+            serializer = serializers.UpdateArticleCoverSerializer(
+                data=request.data)
+            if serializer.is_valid():
+                article_id = serializer.data.get('article_id')
+                cover = request.FILES['cover']
+            else:
+                return Response(
+                    {'status': 'Bad Request.'},
+                    status=status.HTTP_200_OK)
+            article = Article.objects.get(id=article_id)
+            article.cover = cover
+        except Exception:
             message: str = "Internal Server Error, We'll Check It Later"
             return Response(
                 {'status': message},
