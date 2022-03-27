@@ -1,13 +1,14 @@
 """blog views
 """
 from typing import List
+from django.http import HttpRequest
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.db.models import Q
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Article
+from .models import Article, Category, UserProfile, User
 from . import serializers
 
 
@@ -36,7 +37,7 @@ class IndexPage(TemplateView):
     """index page view
     """
 
-    def get(self, request: object):
+    def get(self, request: HttpRequest):
         # all articles data
         all_articles: List[object] = Article.objects.all().order_by(
             "-created_at")[:12]
@@ -69,7 +70,7 @@ class AboutPage(TemplateView):  # TODO dynamic data
 class AllArticleAPIView(APIView):
     """all article api view"""
 
-    def get(self, request):
+    def get(self, request: HttpRequest):
         try:
             all_articles: List[object] = Article.objects.all().order_by(
                 '-created_at')[:10]
@@ -87,7 +88,7 @@ class AllArticleAPIView(APIView):
 
 
 class SingleArticleAPIView(APIView):
-    def get(self, request):
+    def get(self, request: HttpRequest):
         try:
             article_title: str = request.GET['article_title']
             article: List[object] = Article.objects.filter(
@@ -107,7 +108,7 @@ class SingleArticleAPIView(APIView):
 
 
 class SearchArticleAPIView(APIView):
-    def get(self, request):
+    def get(self, request: HttpRequest):
         try:
             query: str = request.GET['query']
             articles: List[object] = Article.objects.filter(
@@ -122,4 +123,42 @@ class SearchArticleAPIView(APIView):
         else:
             return Response(
                 {'data': data},
+                status=status.HTTP_200_OK)
+
+
+class SubmitArticleAPIView(APIView):
+    def post(self, request: HttpRequest):
+        try:
+            serializer = serializers.SubmitArticleSerializer(data=request.data)
+            if serializer.is_valid():
+                title = serializer.data.get('title')
+                cover = request.FILES['cover']
+                content = serializer.data.get('content')
+                category_id = serializer.data.get('category_id')
+                author_id = serializer.data.get('author_id')
+                promote = serializer.data.get('promote')
+            else:
+                return Response(
+                    {'status': 'Bad Request.'},
+                    status=status.HTTP_200_OK)
+            user = User.objects.get(id=author_id)
+            author = UserProfile.objects.get(user=user)
+            category = Category.objects.get(id=category_id)
+            article = Article()
+            article.title = title
+            article.cover = cover
+            article.content = content
+            article.category = category
+            article.author = author
+            article.promote = promote
+        except Exception as err:
+            print(err)
+            message: str = "Internal Server Error, We'll Check It Later"
+            return Response(
+                {'status': message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            article.save()
+            return Response(
+                {'status': "OK"},
                 status=status.HTTP_200_OK)

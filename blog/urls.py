@@ -19,4 +19,8 @@ urlpatterns = [
         'article/search/',
         views.SearchArticleAPIView.as_view(),
         name='search_article'),
+    path(
+        'article/submit/',
+        views.SubmitArticleAPIView.as_view(),
+        name='submit_article'),
 ]
