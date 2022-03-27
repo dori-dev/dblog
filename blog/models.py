@@ -53,6 +53,7 @@ class Article(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     promote = models.BooleanField(default=False)
+    published = models.BooleanField(default=True)
 
     def get_date(self):  # TODO fa humanize
         return humanize.naturaltime(self.created_at)

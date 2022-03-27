@@ -39,8 +39,8 @@ class IndexPage(TemplateView):
 
     def get(self, request: HttpRequest):
         # all articles data
-        all_articles: List[object] = Article.objects.all().order_by(
-            "-created_at")[:12]
+        all_articles: List[object] = Article.objects.filter(
+            published=True).order_by("-created_at")[:12]
         article_data: List[dict] = list(
             map(get_article_data, all_articles))
         # all promote articles data
