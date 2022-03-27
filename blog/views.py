@@ -140,7 +140,7 @@ class SubmitArticleAPIView(APIView):
             else:
                 return Response(
                     {'status': 'Bad Request.'},
-                    status=status.HTTP_200_OK)
+                    status=status.HTTP_400_BAD_REQUEST)
             user = User.objects.get(id=author_id)
             author = UserProfile.objects.get(user=user)
             category = Category.objects.get(id=category_id)
@@ -174,7 +174,7 @@ class UpdateArticleAPIView(APIView):
             else:
                 return Response(
                     {'status': 'Bad Request.'},
-                    status=status.HTTP_200_OK)
+                    status=status.HTTP_400_BAD_REQUEST)
             article = Article.objects.get(id=article_id)
             article.cover = cover
         except Exception:
@@ -186,4 +186,26 @@ class UpdateArticleAPIView(APIView):
             article.save()
             return Response(
                 {'status': "OK"},
+                status=status.HTTP_200_OK)
+
+
+class DeleteArticleAPIView(APIView):
+    def post(self, request: HttpRequest):
+        try:
+            serializer = serializers.DeleteArticleSerializer(data=request.data)
+            if serializer.is_valid():
+                article_id = serializer.data.get('article_id')
+            else:
+                return Response(
+                    {'status': 'Bad Request.'},
+                    status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            message: str = "Internal Server Error, We'll Check It Later"
+            return Response(
+                {'status': message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            Article.objects.filter(id=article_id).delete()
+            return Response(
+                {'status': 'OK'},
                 status=status.HTTP_200_OK)

@@ -26,5 +26,9 @@ urlpatterns = [
     path(
         'article/update-cover/',
         views.UpdateArticleAPIView.as_view(),
-        name='update_cover')
+        name='update_cover'),
+    path(
+        'article/delete',
+        views.DeleteArticleAPIView.as_view(),
+        name='delete_article'),
 ]
