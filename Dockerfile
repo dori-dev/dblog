@@ -8,7 +8,7 @@ WORKDIR /dblog
 COPY . /dblog
 
 ADD requirements.txt /dblog
-RUN pip install --upgrade pip
+RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN python manage.py collectstatic --no-input
 

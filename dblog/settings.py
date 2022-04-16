@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+import dotenv
+
+DOTENV_PATH = Path(__file__).resolve().parent.parent / '.env'
+print(DOTENV_PATH)
+if DOTENV_PATH.exists():
+    dotenv.read_dotenv(DOTENV_PATH)
+else:
+    print("No .env found, be sure to make it!")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -130,15 +138,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
+STATIC_URL = '/static/'
+# Static Files(Production)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Static Files(Development)
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_URL = '/static/'
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'static'),
 # )
-# Static Files(Production)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
 
 # CKEditor
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
