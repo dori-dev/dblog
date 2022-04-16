@@ -46,8 +46,7 @@ class Article(models.Model):
     cover = models.ImageField(
         upload_to='article_cover/',
         null=False, blank=False,
-        validators=[validate_file_extension],
-    )
+        validators=[validate_file_extension])
     content = RichTextField()
     created_at = models.DateTimeField(default=timezone.now, blank=False)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
