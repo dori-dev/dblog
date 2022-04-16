@@ -12,6 +12,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
 ]
 
+# for development
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL,

@@ -30,8 +30,7 @@ if debug:
     ALLOWED_HOSTS = []
 else:
     DEBUG = False
-    default_hosts = "127.0.0.1,localhost"
-    ALLOWED_HOSTS = os.environ.get('HOSTS', default_hosts).split(',')
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -131,12 +130,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
-# Static Files
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Static Files(Development)
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
+# Static Files(Production)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
 
 # CKEditor
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
