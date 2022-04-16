@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - dblog_static_volume:/dblog/static
+      - dblog_files_volume:/dblog/files
+    networks:
+      - nginx_network
+
+volumes:
+  dblog_static_volume:
+    external: true
+  dblog_files_volume:
+    external: true
+networks:
+  nginx_network:
+    external: true
