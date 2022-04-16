@@ -1,6 +1,22 @@
 version: '3'
 
 services:
+  dblog:
+    build:
+      content: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/dblog
+      - dblog_static_volume:/dblog/static
+      - dblog_files_volume:/dblog/files
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - dblog_network
+      - nginx_network
+    depends_on:
+      - dblog_postgresql
   dblog_postgresql:
     image: postgres:12
     container_name: dblog_postgresql
@@ -16,7 +32,13 @@ services:
 volumes: 
   dblog_postgresql:
     external: true
+  dblog_static_volume:
+    external: true
+  dblog_files_volume:
+    external: true
 
 networks:
   dblog_network:
+    external: true
+  nginx_network:
     external: true
