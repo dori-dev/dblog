@@ -7,7 +7,6 @@ Using any tools to create advance blog with Django!
 - [Python 3](https://www.python.org/) - Programming Language
 - [Django 4](https://www.djangoproject.com/) - Powerful Web Framework
 - [Django Rest Framework](https://www.django-rest-framework.org/) - Web API's
-- [Jinja2](https://jinja.palletsprojects.com/en/2.11.x/) - Template Engine
 - [Gunicorn](https://gunicorn.org/) - WSGI HTTP Server
 - [PostgreSQL](https://www.postgresql.org/) - PostgreSQL Database
 - [NginX](https://www.nginx.com/) - High performance web server
@@ -18,39 +17,39 @@ Using any tools to create advance blog with Django!
 First **clone** or **download** this project.
 
 ```sh
-$ git clone https://github.com/dori-dev/dblog.git
+git clone https://github.com/dori-dev/dblog.git
 ```
 
 Then create **docker network** and **volumes** as below.
 
 ```sh
-$ docker volume create dblog_postgresql
-$ docker volume create dblog_static_volume
-$ docker volume create dblog_files_volume
+docker volume create dblog_postgresql
+docker volume create dblog_static_volume
+docker volume create dblog_files_volume
 ```
 
 ```sh
-$ docker network create nginx_network
-$ docker network create dblog_network
+docker network create nginx_network
+docker network create dblog_network
 ```
 
 Now run django and postgresql with **docker-compose**.
 
 ```sh
-$ docker-compose up -d
+docker-compose up -d
 ```
 
 Then run nginx container with **docker-compose**.
 
 ```sh
-$ cd config/nginx/
-$ docker-compose up -d
+cd config/nginx/
+docker-compose up -d
 ```
 
 You can see dblog web page on http://localhost, Template and API's are accessable by docker containers which you can see with below command.
 
 ```sh
-$ docker ps -a
+docker ps -a
 ```
 
 **Output** should be like this.
