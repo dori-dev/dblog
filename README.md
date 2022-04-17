@@ -46,7 +46,7 @@ cd config/nginx/
 sudo docker-compose up -d
 ```
 
-You can see dblog web page on http://localhost, Template and API's are accessable by docker containers which you can see with below command.
+You can see dblog web page on http://localhost, Template and API's are accessible by docker containers which you can see with below command.
 
 ```sh
 sudo docker ps -a

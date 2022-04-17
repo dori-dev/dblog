@@ -15,7 +15,6 @@ from pathlib import Path
 import dotenv
 
 DOTENV_PATH = Path(__file__).resolve().parent.parent / '.env'
-print(DOTENV_PATH)
 if DOTENV_PATH.exists():
     dotenv.read_dotenv(DOTENV_PATH)
 else:
