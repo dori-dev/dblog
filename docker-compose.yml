@@ -29,7 +29,7 @@ services:
     networks:
       - dblog_network
 
-volumes: 
+volumes:
   dblog_postgresql:
     external: true
   dblog_static_volume:

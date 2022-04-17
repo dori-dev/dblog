@@ -138,7 +138,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
-STATIC_URL = '/static/'
 # Static Files(Production)
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Static Files(Development)
@@ -146,6 +145,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'static'),
 # )
+STATIC_URL = '/static/'
 
 # CKEditor
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
