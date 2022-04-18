@@ -2,16 +2,15 @@ version: '3'
 
 services:
   nginx:
-    image: nginx:1.20
-    container_name: nginx
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "80:80"
+    container_name: dblog_nginx
     volumes:
       - dblog_static_volume:/dblog/static
       - dblog_files_volume:/dblog/files
+    ports:
+      - "80:80"
     networks:
       - nginx_network
 
@@ -20,6 +19,7 @@ volumes:
     external: true
   dblog_files_volume:
     external: true
+
 networks:
   nginx_network:
     external: true
