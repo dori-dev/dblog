@@ -1,11 +1,10 @@
 version: '3'
 
 services:
-  nginx:
+  dblog_nginx:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: dblog_nginx
     volumes:
       - dblog_static_volume:/dblog/static
       - dblog_files_volume:/dblog/files
