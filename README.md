@@ -18,46 +18,67 @@ First **clone** or **download** this project.
 
 ```sh
 git clone https://github.com/dori-dev/dblog.git
+cd dblog
+```
+
+Access Docker to use super user do
+```sh
+sudo usermod -aG docker ${USER}
 ```
 
 Then create **docker network** and **volumes** as below.
 
 ```sh
-sudo docker volume create dblog_postgresql
-sudo docker volume create dblog_static_volume
-sudo docker volume create dblog_files_volume
+docker volume create dblog_postgresql
+docker volume create dblog_static_volume
+docker volume create dblog_files_volume
 ```
 
 ```sh
-sudo docker network create nginx_network
-sudo docker network create dblog_network
+docker network create nginx_network
+docker network create dblog_network
 ```
 
 Run django and postgresql with **docker-compose**.
 
 ```sh
-sudo docker-compose up -d
+docker-compose up -d
 ```
 
 Then run nginx container with **docker-compose**.
 
 ```sh
 cd config/nginx/
-sudo docker-compose up -d
+docker-compose up -d
 ```
 
 You can see dblog web page on http://localhost:8000/, Template and API's are accessible by docker containers which you can see with below command.
 
 ```sh
-sudo docker ps -a
+docker ps -a
 ```
 
 **Output** should be like this.
 
 ```sh
-CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS         PORTS                                       NAMES
-0a45f582a974   dblog_dblog   "gunicorn --chdir db…"   3 minutes ago   Up 3 minutes   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   dblog_dblog_1
-031baf3eb04a   postgres:12   "docker-entrypoint.s…"   3 minutes ago   Up 3 minutes   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   dblog_postgresql
+CONTAINER ID   IMAGE               COMMAND                  CREATED             STATUS             PORTS                                       NAMES
+857914e957c2   nginx_dblog_nginx   "/docker-entrypoint.…"   9 minutes ago       Up 9 minutes       0.0.0.0:80->80/tcp, :::80->80/tcp           nginx_dblog_nginx_1
+49d2308fcf9b   dblog_dblog         "gunicorn --chdir db…"   About an hour ago   Up About an hour   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   dblog_dblog_1
+7b503cc55499   postgres:12         "docker-entrypoint.s…"   About an hour ago   Up About an hour   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   dblog_postgresql
+
 ```
 
-**nginx** container as common web server, **dblog** container as django application and **dblog_postgresql** as postgreSQL database container.
+**dblog_nginx** container as common web server, **dblog** container as django application and **dblog_postgresql** as postgreSQL database container.
+
+
+```sh
+docker exec -it dblog_dblog_1 bash
+```
+
+Migrate and Create superuser
+
+```sh
+python manage.py makemigrations blog
+python manage.py migrate
+python manage.py createsuperuser
+```
