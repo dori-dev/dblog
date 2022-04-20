@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: dblog
     volumes:
       - .:/dblog
       - dblog_static_volume:/dblog/static

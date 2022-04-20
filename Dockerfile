@@ -12,7 +12,9 @@ COPY . /dblog
 ADD requirements.txt /dblog
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
-# Collect static files
+# Static Files & Migrate & Super User
 RUN python manage.py collectstatic --no-input
+RUN python manage.py makemigrations blog --no-input
+RUN python manage.py migrate --no-input
 
 CMD ["gunicorn", "--chdir", "dblog", "--bind", ":8000", "dblog.wsgi:application"]

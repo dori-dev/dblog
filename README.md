@@ -52,7 +52,7 @@ cd config/nginx/
 docker-compose up -d
 ```
 
-You can see dblog web page on http://localhost:8000/, Template and API's are accessible by docker containers which you can see with below command.
+You can see dblog web page on http://localhost/, Template and API's are accessible by docker containers which you can see with below command.
 
 ```sh
 docker ps -a
@@ -72,13 +72,13 @@ CONTAINER ID   IMAGE               COMMAND                  CREATED             
 
 
 ```sh
-docker exec -it dblog_dblog_1 bash
+docker exec -it dblog bash
 ```
 
-Migrate and Create superuser
+Create admin user
 
 ```sh
-python manage.py makemigrations blog
-python manage.py migrate
 python manage.py createsuperuser
 ```
+
+You can see dblog admin web page on http://localhost/admin/
