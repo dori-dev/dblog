@@ -81,4 +81,4 @@ Create admin user
 python manage.py createsuperuser
 ```
 
-You can see dblog admin web page on http://localhost/admin/
+You can see dblog admin web page on http://localhost/admin/ and create article.
